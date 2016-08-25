@@ -1,0 +1,62 @@
+#! /bin/bash
+
+# File: develDCLDE.gmt
+# Author: Yun T.
+# Date: 2016 August 03
+# GMT version: 5.2.1
+
+# Description: Using the gmt tool, plots a map of the HARP locations from the developmentdataset.
+
+
+# Plots the general map of the DCLDE HARP locations and saves it to the harpDCLDEmap.ps file
+
+### Details of pscoast ###
+# -R sets the longitude range first followed by the latitude 
+# -D sets the resolution. f sets to full / best quality
+# -J sets the type of projection. M is for mercator (typical map). 6i is for map size of 6 inches
+# -P sets it for protrait mode
+# -B sets the border and axes. a for all?
+# -G sets the color for land
+# -K meams more gmt commands will be used to be added to this plot
+# > redirects the output to the named file 
+
+gmt pscoast -R-122/-117/32/36 -Df -JM6i -P -Ba -Gchocolate -K > harpDCLDEmap.ps
+
+### Details of pstext ###
+# -R -JM -K -P same as above in pscoast
+# -N makes sure that it doesn't clip text if at the edge
+# -O appends to file 
+# -V verbose so we can see what is going on
+# -F sets the text attributes size 12,font type 1 = Helvetica Bold, color black, +j for justisfied
+# <<EOF means we're going to add text and when the same EOF is reached that ends it as input to this function
+# >> append output to the specificed file
+
+gmt pstext -R -JM -N -O -K -P -V -D.2i/0 -F+f12,1,black+j  <<EOF >> harpDCLDEmap.ps
+120:1.7W  34:17N   BL CINMS B
+121:14.5W 35:36.7N BL DCPP A
+120:53.1W 35:9.6N  BL DCPP B
+121:33.8W 35:24N   BL DCPP C
+119:28.4W 32:39.4N BL SOCAL E
+EOF
+
+# made another pstext call so that we can print some labels on the the left side
+gmt pstext -R -JM -N -O -K -P -V -D-.2i/0 -F+f12,1,black+j  <<EOF >> harpDCLDEmap.ps
+120:48.4W 34:19.5N BR CINMS C
+120:0.6W  33:9.6N  BR SOCAL R
+EOF
+
+## Details of psxy ###
+# -R -JM -O -K -P -V   same as the previous other two
+# -S symbol/shape type t for triangle 0.25i for quarter inch size
+# -W width of the symbol
+gmt psxy -R -JM -O -K -P -St0.25i -W5.0 -V << EOF >> harpDCLDEmap.ps
+120:1.7W  34:17N   
+120:48.4W 34:19.5N 
+121:14.5W 35:36.7N 
+120:53.1W 35:9.6N  
+121:33.8W 35:24N   
+119:28.4W 32:39.4N 
+120:0.6W  33:9.6N  
+EOF
+
+
