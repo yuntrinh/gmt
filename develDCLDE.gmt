@@ -2,7 +2,7 @@
 
 # File: develDCLDE.gmt
 # Author: Yun T.
-# Date: 2016 August 03
+# Date: 2016 August 
 # GMT version: 5.2.1
 
 # Description: Using the gmt tool, plots a map of the HARP locations from the developmentdataset.
@@ -37,6 +37,7 @@ gmt pstext -R -JM -N -O -K -P -V -D.2i/0 -F+f12,1,black+j  <<EOF >> harpDCLDEmap
 120:53.1W 35:9.6N  BL DCPP B
 121:33.8W 35:24N   BL DCPP C
 119:28.4W 32:39.4N BL SOCAL E
+118:14.6W 34:3.1N  BL LOS ANGELES
 EOF
 
 # made another pstext call so that we can print some labels on the the left side
@@ -59,4 +60,6 @@ gmt psxy -R -JM -O -K -P -St0.25i -W5.0 -V << EOF >> harpDCLDEmap.ps
 120:0.6W  33:9.6N  
 EOF
 
-
+gmt psxy -R -JM -O -K -P -Sc0.2i -G0 -V << EOF >> harpDCLDEmap.ps
+118:14.6W 34:3.1N
+EOF
